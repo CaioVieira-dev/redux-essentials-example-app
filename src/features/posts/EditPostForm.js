@@ -15,8 +15,8 @@ export const EditPostForm =({match})=>{
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const onTitleChange = e => setTitle(e.target.value)
-    const onContentChange = e => setContent(e.target.value)
+    const onTitleChanged = e => setTitle(e.target.value)
+    const onContentChanged = e => setContent(e.target.value)
 
     const onSavePostClicked=()=>{
         if(title&&content){
