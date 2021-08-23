@@ -13,10 +13,10 @@ const postsSlice = createSlice({
         postAdded:{reducer(state,action){
             state.push(action.payload)
         },
-        prepare(title, content){
+        prepare(title, content, userId){
             return {
                 payload: {
-                    id: nanoid(), title, content
+                    id: nanoid(), title, content,user:userId,
                 }
             }
         }},
