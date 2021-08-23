@@ -52,3 +52,7 @@ const postsSlice = createSlice({
 })
 export const {postAdded,reactionAdded,postUpdated} = postsSlice.actions
 export default postsSlice.reducer
+
+export const selectAllPosts = state => state.posts
+
+export const selectPostById = (state,postId)=> state.posts.find(post => postId===post.id)
