@@ -32,7 +32,7 @@ export const Navbar = () => {
             <Link to='/users'>Users</Link>
             <Link to='/notifications'>Notifications {unreadNotificationBadge}</Link>
           </div>
-          <button className="button" onClick={fetchNewNotifications}>
+          <button disabled className="button" onClick={fetchNewNotifications}>
             Refresh Notifications
           </button>
         </div>
