@@ -5,5 +5,6 @@ export function DeleteUser(id){
     const dispatch = useDispatch()
     return <button 
     type="button" 
+    class="button-delete"
     onClick={()=>{dispatch(deleteUser(id))}}>X</button>
 }

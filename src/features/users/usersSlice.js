@@ -36,6 +36,14 @@ async userId=>{
     })
     return {data: response.data,...userId}
 })
+export const updateUser=createAsyncThunk("users/updateUser",
+async updatedUser=>{
+    const json = JSON.stringify(updatedUser)
+    const response = await api.patch('/update-user',json,{
+        headers: { 'Content-Type': 'application/json' },
+    })
+    return {data: response.data,...updatedUser}
+})
 
 const usersSlice = createSlice({
     name: 'users',
@@ -53,6 +61,11 @@ const usersSlice = createSlice({
             if(action.payload.data.ok===1){
                 console.log('user deleted')
                 usersAdapter.removeOne(state,action.payload.id)
+            }
+        },
+        [updateUser.fulfilled]:(state, action) =>{
+            if(action.payload.data.ok===1){
+                usersAdapter.updateOne(state, {id:action.payload.id,changes:{name:action.payload.name,username:action.payload.username}})
             }
         }
     }

@@ -16,6 +16,7 @@ import {UsersList} from './features/users/UsersList'
 import {UserPage} from './features/users/UserPage'
 import {NotificationsList} from './features/notifications/NotificationsList'
 import {AddUserPage} from './features/users/AddUserPage'
+import {UpdateUser} from './features/users/UpdateUser'
 function App() {
   return (
     <Router>
@@ -37,6 +38,7 @@ function App() {
           <Route exact path="/users" component={UsersList}/>
           <Route exact path="/addUser" component={AddUserPage}/>
           <Route exact path="/users/:userId" component={UserPage}/>
+          <Route exact path="/updateUser/:userId" component={UpdateUser}/>
           <Route exact path="/notifications" component={NotificationsList}/>
           <Redirect to="/" />
         </Switch>
