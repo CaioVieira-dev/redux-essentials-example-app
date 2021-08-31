@@ -12,7 +12,7 @@ export const UsersList=()=>{
         <li key={user.id}>
             <div className="flex-separator">
             <Link to={`/users/${user.id}`}>{user.name}</Link>
-            <div>
+            <div className="__applygap">
             <Link to={`/updateUser/${user.id}`}>Atualizar</Link>
             <DeleteUser id={user.id}/>
             </div>

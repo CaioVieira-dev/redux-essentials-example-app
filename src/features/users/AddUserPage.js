@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {useHistory} from 'react-router-dom'
+import {useHistory,Link} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 
 import {createUser,fetchUsers} from './usersSlice'
@@ -13,7 +13,6 @@ export function AddUserPage(){
     function handleCancel(){
         setName('')
         setUsername('')
-        history.push('/users')
     }
     function handleSave(){ 
         if(!name||!username){return}
@@ -39,14 +38,17 @@ export function AddUserPage(){
         id="username" 
         value={username} 
         onChange={(e)=>setUsername(e.target.value)}/>
-        <button 
+        <div className="flex-separator">
+
+        <Link 
         className="button muted-button"
-        type="button"
-        onClick={handleCancel}>Cancelar</button>
+        onClick={handleCancel}
+        to="/users">Cancelar</Link>
         <button
         type="button"
         onClick={handleSave}
         >Cadastrar</button>
+        </div>
             </form>
         </section>
     )

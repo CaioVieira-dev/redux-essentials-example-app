@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {useHistory} from 'react-router-dom'
+import {useHistory,Link} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
 import {selectUserById,updateUser,fetchUsers} from './usersSlice'
 
@@ -12,9 +12,7 @@ export function UpdateUser({match}){
     const dispatch = useDispatch()
     const history = useHistory()
 
-    function handleCancel(){
-        history.push('/users')
-    }
+   
     function handleSave(){ 
         if(!name||!username){return}
         dispatch(updateUser({name,username,id:userId}))
@@ -39,14 +37,16 @@ export function UpdateUser({match}){
         id="username" 
         value={username} 
         onChange={(e)=>setUsername(e.target.value)}/>
-        <button 
+        <div className="flex-separator">
+
+        <Link 
         className="button muted-button"
-        type="button"
-        onClick={handleCancel}>Cancelar</button>
+        to='/users'>Cancelar</Link>
         <button
         type="button"
         onClick={handleSave}
         >Cadastrar</button>
+        </div>
             </form>
         </section>
     )
