@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector}from 'react-redux'
 import { useHistory } from 'react-router';
 
-import {postUpdated,selectPostById} from './postsSlice'
+import {selectPostById,updatePost} from './postsSlice'
 
 export const EditPostForm =({match})=>{
     const {postId} = match.params;
@@ -20,7 +20,7 @@ export const EditPostForm =({match})=>{
 
     const onSavePostClicked=()=>{
         if(title&&content){
-            dispatch(postUpdated({id:post.id,title,content}))
+            dispatch(updatePost({id:post.id,title,content}))
             history.push(`/posts/${post.id}`)
         }
     }

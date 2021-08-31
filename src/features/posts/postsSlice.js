@@ -57,6 +57,15 @@ async initialPost=>{
 
 
 })
+
+export const updatePost= createAsyncThunk('posts/updatePost',
+async payloadData=>{
+    const json = JSON.stringify(payloadData)
+    const response = await api.patch('/update-post',json,{
+        headers: {'Content-Type': 'application/json'}
+    })
+    return {data:response.data,...payloadData}
+})
 /*
 function updateReaction(state,action){
     const {id, reactions}= action.payload
@@ -99,6 +108,11 @@ const postsSlice = createSlice({
             console.log(action.payload)
             if(action.payload.data.ok===1){
                 postsAdapter.updateOne(state,{id:action.payload.id,changes:{reactions:action.payload.reactions}})
+            }
+        },
+        [updatePost.fulfilled]:(state,action)=>{
+            if(action.payload.data.ok===1){
+                postsAdapter.updateOne(state,{id:action.payload.id,changes:{title:action.payload.title,content:action.payload.content}})
             }
         }
        
