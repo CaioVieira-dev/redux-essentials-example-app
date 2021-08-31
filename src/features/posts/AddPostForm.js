@@ -42,7 +42,7 @@ export const AddPostFrom = ()=>{
     }
 
     const usersOptions = users.map(user =>(
-        <option key={user.id} value={user.id}>{user.name}</option>
+        <option key={user._id} value={user._id}>{user.name}</option>
     ))
 
     return(
