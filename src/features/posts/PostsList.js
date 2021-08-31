@@ -21,7 +21,7 @@ let PostExcerpt =({postId})=>{
             </div>
             <p className= 'post-content'>{post.content.substring(0,100)}</p>
             <ReactionButtons post={post} />
-            <div>
+            <div className= 'flex-separator'>
 
             <Link to={`/posts/${post.id}`} className="button muted-button">
                 View Post

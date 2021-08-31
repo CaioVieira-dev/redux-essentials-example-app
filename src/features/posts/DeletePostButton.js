@@ -6,7 +6,8 @@ export function DeleteButton({postId}){
     const dispatch = useDispatch()
 
     return(
-        <button 
+        <button
+        className="button-delete" 
         type="button"
         onClick={()=>{
             dispatch(deletePost({id:postId}));

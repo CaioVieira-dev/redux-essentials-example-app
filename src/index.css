@@ -139,6 +139,14 @@ p.post-content {
   font-weight: 700;
   padding: 0.75rem 1.5rem;
 }
+.button-delete{
+  background-color: hsl(0, 79%, 46%);
+  border:0;
+}
+.button-delete:hover{
+  background-color: hsl(0, 79%, 36%);
+  border:0;
+}
 
 button:disabled,
 button:disabled:hover {
@@ -255,4 +263,11 @@ button.reaction-button {
 
 .notification.new {
   background-color: rgba(29, 161, 242, 0.1);
+}
+
+.flex-separator{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
 }
