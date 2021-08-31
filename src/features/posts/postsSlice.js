@@ -25,6 +25,7 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async ()=>{
 
 export const addNewPost = createAsyncThunk('posts/addNewPost',
 async initialPost=>{
+    //{title,content,user}
     //const response = await client.post('/fakeApi/posts',{post:initialPost})
     console.log(initialPost)
     const json = JSON.stringify(initialPost)
@@ -41,17 +42,36 @@ async initialPost=>{
     return {...response.data.post,id:response.data.post._id}
 })
 
+export const addReactions= createAsyncThunk('posts/addReactions',
+async initialPost=>{
+    //{id,reaction name}
+    console.log(initialPost)
+    const json = JSON.stringify(initialPost)
+    
+    const response = await api.patch('/update-post-reactions',json,{
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    return {data:response.data,...initialPost}
+
+
+})
+/*
+function updateReaction(state,action){
+    const {id, reactions}= action.payload
+    const existingPost = state.entities[id]
+    if(existingPost){
+        existingPost.reactions= reactions
+    }
+}
+*/
+
 const postsSlice = createSlice({
     name: 'posts',
     initialState: initialState,
     reducers: {
-        reactionAdded(state,action){
-            const {postId, reaction}= action.payload
-            const existingPost = state.entities[postId]
-            if(existingPost){
-                existingPost.reactions[0][reaction]++
-            }
-        },
+ 
         postUpdated(state,action){
             const {id, title, content}= action.payload;
             const existingPost = state.entities[id];
@@ -74,10 +94,17 @@ const postsSlice = createSlice({
             state.status = 'failed'
             state.error= action.error.message
         },
-        [addNewPost.fulfilled]:postsAdapter.addOne
+        [addNewPost.fulfilled]:postsAdapter.addOne,
+        [addReactions.fulfilled]:(state,action)=>{
+            console.log(action.payload)
+            if(action.payload.data.ok===1){
+                postsAdapter.updateOne(state,{id:action.payload.id,changes:{reactions:action.payload.reactions}})
+            }
+        }
+       
     }
 })
-export const {reactionAdded,postUpdated} = postsSlice.actions
+export const {postUpdated} = postsSlice.actions
 export default postsSlice.reducer
 
 
