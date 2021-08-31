@@ -27,6 +27,16 @@ async newUser=>{
     return response.data
 })
 
+export const deleteUser= createAsyncThunk("users/deleteUser",
+async userId=>{
+    const json = JSON.stringify(userId)
+    console.log(json)
+    const response = await api.post('/delete-user',json,{
+        headers: { 'Content-Type': 'application/json' },
+    })
+    return {data: response.data,...userId}
+})
+
 const usersSlice = createSlice({
     name: 'users',
     initialState,
@@ -37,6 +47,12 @@ const usersSlice = createSlice({
             if(action.payload._id){
                 console.log('user created')
                 usersAdapter.addOne(state,action.payload)
+            }
+        },
+        [deleteUser.fulfilled]:(state,action)=>{
+            if(action.payload.data.ok===1){
+                console.log('user deleted')
+                usersAdapter.removeOne(state,action.payload.id)
             }
         }
     }
