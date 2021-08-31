@@ -17,12 +17,28 @@ export const fetchUsers= createAsyncThunk('users/fetchUsers',async ()=>{
     
 })
 
+export const createUser= createAsyncThunk("users/createUser",
+async newUser=>{
+    const json = JSON.stringify(newUser)
+    const response = await api.post('/create-user',json,{
+        headers: { 'Content-Type': 'application/json' },
+    })
+
+    return response.data
+})
+
 const usersSlice = createSlice({
     name: 'users',
     initialState,
     reducers:{},
     extraReducers:{
-        [fetchUsers.fulfilled]:usersAdapter.setAll
+        [fetchUsers.fulfilled]:usersAdapter.setAll,
+        [createUser.fulfilled]:(state,action)=>{
+            if(action.payload._id){
+                console.log('user created')
+                usersAdapter.addOne(state,action.payload)
+            }
+        }
     }
 })
 
