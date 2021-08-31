@@ -66,6 +66,17 @@ async payloadData=>{
     })
     return {data:response.data,...payloadData}
 })
+
+export const deletePost=createAsyncThunk('posts/deletePost',
+async id=>{
+    const json = JSON.stringify(id)
+    console.log(json)
+    const response = await api.post('/delete-post',json,{
+        headers: {'Content-Type': 'application/json'}
+    })
+    console.log(response)
+    return {data: response.data,...id}
+})
 /*
 function updateReaction(state,action){
     const {id, reactions}= action.payload
@@ -113,6 +124,12 @@ const postsSlice = createSlice({
         [updatePost.fulfilled]:(state,action)=>{
             if(action.payload.data.ok===1){
                 postsAdapter.updateOne(state,{id:action.payload.id,changes:{title:action.payload.title,content:action.payload.content}})
+            }
+        },
+        [deletePost.fulfilled]:(state, action)=>{
+            console.log(action.payload)
+            if(action.payload.data.ok===1){
+                postsAdapter.removeOne(state,action.payload.id)
             }
         }
        
