@@ -4,13 +4,15 @@ import postsReducer from '../features/posts/postsSlice'
 import usersReducer from '../features/users/usersSlice'
 import notificationsReducer from '../features/notifications/notificationsSlice'
 
-const myLoggerMiddleware = storeAPI => next => action => {  
+const myLoggerMiddleware = storeAPI => next => action => {
+  console.group(`dispatch/${action.type}`)  
   console.log('Dispatching: ',action)
-  console.time('dispatch')
+  console.time(action.type)
   const result = next(action)
   console.log('Dispatch done in:')
-  console.timeEnd('dispatch')
+  console.timeEnd(action.type)
   console.log('Result: ',result)
+  console.groupEnd() 
   return result
 }
 
